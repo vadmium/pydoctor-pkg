@@ -2,11 +2,12 @@
 pkgname=pydoctor
 pkgver=0.4
 pkgrel=1
-pkgdesc="An epydoc-like tool"
+pkgdesc="API documentation generator for Python using static analysis"
 arch=('any') # python
-url="http://codespeak.net/~mwh/pydoctor/"
-license=('custom')
-depends=('python2' 'nevow' 'twisted' 'zope-interface')
+url="https://pypi.python.org/pypi/pydoctor"
+license=('MIT')
+depends=('python2' 'nevow>=0.9.18' 'twisted' 'zope-interface')
+optdepends=("epydoc: Restructured Text parser")
 source=(
 "https://pypi.python.org/packages/source/p/pydoctor/pydoctor-$pkgver.tar.gz"{,.asc}
 )
@@ -19,6 +20,6 @@ build() {
 
 package(){
   cd "$srcdir/pydoctor-$pkgver"
-  python2 setup.py install --root="$pkgdir"
-  install -D -m644 LICENSE.txt $pkgdir/usr/share/licenses/$pkgname/LICENSE
+  python2 setup.py install --root="$pkgdir" --optimize=1
+  install -D -m644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
